@@ -1,6 +1,6 @@
 FROM python:3.11-rc-alpine
 
-WORKDIR /app/apli
+WORKDIR /app/
 
 COPY requirements.txt /app/
 
