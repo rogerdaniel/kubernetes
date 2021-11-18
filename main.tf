@@ -1,5 +1,10 @@
+variable "access_key_path" {}
+variable "secret_key_path" {}
+
 provider "aws" {
   region = "us-east-2"
+  access_key = var.access_key_path
+  secret_key = var.secret_key_path
 }
 
 data "aws_ami" "ubuntu" {
@@ -23,7 +28,7 @@ variable "vpc_id" {}
 
 resource "aws_key_pair" "deployer" {
   key_name   = "deployer-key"
-  public_key = file(var.ssh_key_path)
+  public_key = var.ssh_key_path
 }
 
 resource "aws_security_group" "allowssh" {
