@@ -8,14 +8,7 @@ provider "aws" {
 } # bloque de provider y de authenticacion
   # declaracion de recursos
 
-resource "aws_instance" "prueba" {
- ami = "ami-0629230e074c580f2"
- instance_type = "t2.micro"
- tags = {
-       name = "Mi intancia Terraform clase Clouddevops"
- }
-}
- # bloque security group
+# bloque security group
 
 resource "aws_security_group" "Terraform" {
   ingress {
@@ -31,3 +24,16 @@ resource "aws_security_group" "Terraform" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_instance" "prueba" {
+ ami = "ami-0629230e074c580f2"
+ instance_type = "t2.micro"
+ vpc_security_group_ids = [
+    aws_security_group.Terraform.id
+  ]
+
+ tags = {
+       name = "Mi intancia Terraform clase Clouddevops"
+ }
+}
+
